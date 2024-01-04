@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  monitoring:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: monitoring/backend:latest
+    ports:
+      - "8484:8484"
+    container_name: monitoring
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/monitoring-db
+  db:
+    image: 'postgres:13.1-alpine'
+    container_name: db
+    environment:
+      - POSTGRES_USER=pg-user
+      - POSTGRES_PASSWORD=pg-password
+      - POSTGRES_DB=monitoring-db
+    ports:
+        - "5432:5432"

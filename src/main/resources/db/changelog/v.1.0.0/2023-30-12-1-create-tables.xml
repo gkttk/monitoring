@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2023-30-12-1-create-components-table" author="k.s">
+        <createTable tableName="components">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="description" type="varchar(200)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-30-12-1-create-notifications-table" author="k.s">
+        <createTable tableName="notifications">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="timestamp" type="TIMESTAMP WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="component_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_components" references="components(id)"/>
+            </column>
+            <column name="description" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="severity" type="varchar(30)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2023-30-12-1-create-configurations-table" author="k.s">
+        <createTable tableName="configurations">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="key" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+            <column name="value" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-02-01-1-create-roles-table" author="k.s">
+        <createTable tableName="roles">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)">
+                <constraints nullable="false" unique="true" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-02-01-2-create-users-table" author="k.s">
+        <createTable tableName="users">
+            <column name="id" type="bigint" autoIncrement="true">
+                <constraints nullable="false" primaryKey="true"/>
+            </column>
+            <column name="login" type="varchar(100)">
+                <constraints nullable="false" unique="true"  />
+            </column>
+            <column name="password" type="varchar(100)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="2024-02-01-3-create-users_roles-table" author="k.s">
+        <createTable tableName="users_roles">
+            <column name="user_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_user_id"  references="users(id)"/>
+            </column>
+            <column name="role_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="fk_role_id"  references="roles(id)"/>
+            </column>
+        </createTable>
+        
+        <addPrimaryKey tableName="users_roles" columnNames="user_id, role_id" constraintName="pk_users_roles"/>
+    </changeSet>
+
+
+</databaseChangeLog>

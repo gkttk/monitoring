@@ -1,0 +1,59 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.2.1'
+	id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.gkttk'
+version = '0.0.1-SNAPSHOT'
+
+jar{
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	archiveFileName = "${project.name}.jar"
+
+	manifest {
+		attributes "Main-Class": "com.gkttk.monitoring.MonitoringApplication"
+	}
+
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+}
+
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
+	annotationProcessor 'org.projectlombok:lombok'
+	annotationProcessor 'org.mapstruct:mapstruct-processor:1.5.5.Final'
+	compileOnly 'org.projectlombok:lombok'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-graphql'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mapstruct:mapstruct:1.5.5.Final'
+	implementation 'org.postgresql:postgresql:42.7.1'
+	implementation 'org.liquibase:liquibase-core:4.25.1'
+	implementation 'org.springframework.boot:spring-boot-starter-artemis'
+	implementation 'org.apache.activemq:artemis-jms-server:2.28.0'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

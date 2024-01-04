@@ -1,0 +1,45 @@
+spring:
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  datasource:
+    password: pg-password
+    url: jdbc:postgresql://localhost:5432/monitoring-db
+    username: pg-user
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    enabled: true
+    drop-first: false
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    default-schema: monitoring_schema
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: testmail123123123321@gmail.com
+    password: "rcse ldlt gfjx zetb"
+    protocol: smtp
+    auth: true
+    starttls-enabled: true
+    debug: false
+  graphql:
+    graphiql:
+      enabled: true
+    path: /api/graphql
+
+server:
+  port: 8484
+scheduler:
+  configuration:
+    fixed-delay: 60000
+messaging:
+  queue:
+    name: notification_queue
+logging:
+  level:
+    org.apache.activemq: ERROR
+jwt:
+  secret: 984hg493gh0439rthr0429uruj2309yh937gc763fe87t3f89723gf
+  lifetime: 10m

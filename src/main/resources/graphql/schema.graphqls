@@ -1,0 +1,43 @@
+scalar LocalDateTime
+
+type Query {
+    users: [User!]!
+    userById(id: ID!): User
+    configurations: [Configuration!]!
+    notifications(filter: NotificationFilter): [Notification!]!
+}
+
+type Mutation {
+    updateConfiguration(id: ID!, newValue: String!): Configuration!
+}
+
+input NotificationFilter {
+    componentId: ID
+    severity: Severity
+}
+
+type User {
+    id: ID!
+    login: String!
+}
+
+type Configuration {
+    id: ID!
+    key: String!
+    value: String!
+}
+
+type Notification {
+    id: ID!
+    componentName: String!,
+    description: String!,
+    severity: Severity!
+    timestamp: LocalDateTime
+}
+
+
+enum Severity{
+    INFO
+    WARNING
+    ERROR
+}
