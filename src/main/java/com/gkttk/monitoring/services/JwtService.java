@@ -1,8 +1,12 @@
 package com.gkttk.monitoring.services;
 
+import com.gkttk.monitoring.exceptions.AuthException;
+import com.gkttk.monitoring.models.dtos.AuthUserData;
 import com.gkttk.monitoring.models.dtos.JwtRequest;
 
 public interface JwtService {
 
-  String createJwtToken(JwtRequest request);
+  AuthUserData createJwtToken(JwtRequest request) throws AuthException;
+
+  void validateAuthUserData(AuthUserData data) throws AuthException;
 }
