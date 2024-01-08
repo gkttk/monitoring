@@ -9,11 +9,18 @@ type Query {
 
 type Mutation {
     updateConfiguration(id: ID!, newValue: String!): Configuration!
+    createNotification(notification: NotificationRequest) : Notification
 }
 
 input NotificationFilter {
     componentId: ID
     severity: Severity
+}
+
+input NotificationRequest{
+    componentName: String!,
+    description: String!,
+    severity: Severity!
 }
 
 type User {
