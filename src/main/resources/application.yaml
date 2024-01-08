@@ -10,6 +10,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/monitoring-db
     username: pg-user
     driver-class-name: org.postgresql.Driver
+    hikari:
+      schema: monitoring_schema
   liquibase:
     enabled: true
     drop-first: false
