@@ -5,11 +5,24 @@ type Query {
     userById(id: ID!): User
     configurations: [Configuration!]!
     notifications(filter: NotificationFilter): [Notification!]!
+    auth(authRequest: AuthRequest): AuthData
+    validate(data: InputAuthData): AuthData
 }
 
 type Mutation {
     updateConfiguration(id: ID!, newValue: String!): Configuration!
     createNotification(notification: NotificationRequest) : Notification
+}
+
+input AuthRequest {
+    login: String!
+    password: String!
+}
+
+input InputAuthData {
+    login: String!
+    admin: Boolean!,
+    token: String!
 }
 
 input NotificationFilter {
@@ -40,6 +53,12 @@ type Notification {
     description: String!,
     severity: Severity!
     timestamp: LocalDateTime
+}
+
+type AuthData {
+    login: String!
+    admin: Boolean!,
+    token: String!
 }
 
 

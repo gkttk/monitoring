@@ -52,7 +52,7 @@ public class JwtServiceImpl implements JwtService {
   }
 
   @Override
-  public void validateAuthUserData(AuthUserData data) throws AuthException {
+  public AuthUserData validateAuthUserData(AuthUserData data) throws AuthException {
 
     String token = data.token();
     try {
@@ -73,6 +73,8 @@ public class JwtServiceImpl implements JwtService {
       throw new AuthException(
           "Provided auth data token is invalid", HttpStatus.UNAUTHORIZED.value());
     }
+
+    return data;
   }
 
   private boolean hasAdminRole(List<String> roles) {

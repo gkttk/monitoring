@@ -8,5 +8,5 @@ public interface JwtService {
 
   AuthUserData createJwtToken(JwtRequest request) throws AuthException;
 
-  void validateAuthUserData(AuthUserData data) throws AuthException;
+  AuthUserData validateAuthUserData(AuthUserData data) throws AuthException;
 }
