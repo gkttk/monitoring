@@ -22,3 +22,15 @@ services:
       - POSTGRES_DB=monitoring-db
     ports:
         - "5432:5432"
+  frontend:
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+    image: monitoring/ui:latest
+    container_name: ui_monitoring
+    ports:
+      - "3000:3000"
+    links:
+      - monitoring
+    depends_on:
+      - monitoring
